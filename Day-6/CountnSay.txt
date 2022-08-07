@@ -1,0 +1,33 @@
+class Solution {
+public:
+    
+    string getCount(int n)
+    {
+        if(n==1)
+            return "1";
+        
+        if(n==2)
+            return "11";
+        
+        int count = 0;
+        string prev = getCount(n-1);
+        string ans = "";
+        for(int i=0;i<prev.length();i++)
+        {
+            if( i+1 < prev.length() && prev[i+1] == prev[i])
+                count++;
+            else
+            {
+                ans +=to_string(count+1);
+                ans+=prev[i];
+                count = 0;
+            }
+        }
+        
+        return ans;
+    }
+    string countAndSay(int n) {
+        return getCount(n);
+        
+    }
+};

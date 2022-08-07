@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        
+        vector<vector<string>> sol;
+        map<vector<int>, vector<string>> mp;
+        
+        for(auto str:strs)
+        {
+            vector<int> CC(26);
+            
+            for(int i = 0; i<str.length();i++)
+                // CC[str[i]-'0']++;
+            {
+                auto temp = str[i];
+                //cout<<(temp -  'a')<<endl;
+                CC[temp-'a']++;
+            }
+                
+            
+            
+            if(mp.find(CC) == mp.end())
+            {
+                vector<string> temp;
+                temp.push_back(str);
+                mp[CC] = temp;
+            
+            }
+                
+            else
+            {
+                auto temp = mp[CC];
+                temp.push_back(str);
+                mp[CC] = temp;
+            }
+                
+        }
+        
+        for(auto i=mp.begin();i!=mp.end();i++)
+        {
+            auto temp = i;
+            sol.push_back(temp->second);
+        }
+            
+        
+        return sol;
+    }
+};

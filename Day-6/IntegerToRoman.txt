@@ -1,0 +1,39 @@
+class Solution {
+public:
+    string intToRoman(int num) {
+    
+        vector<pair<string,int>> mappings;
+        string roman = "";
+        int tempNum = num;
+        mappings.push_back(make_pair("I",1));
+        mappings.push_back(make_pair("IV",4));
+        mappings.push_back(make_pair("V",5));
+        mappings.push_back(make_pair("IX",9));
+        mappings.push_back(make_pair("X",10));
+        mappings.push_back(make_pair("XL",40));
+        mappings.push_back(make_pair("L",50));
+        mappings.push_back(make_pair("XC",90));
+        mappings.push_back(make_pair("C",100));
+        mappings.push_back(make_pair("CD",400));
+        mappings.push_back(make_pair("D",500));
+        mappings.push_back(make_pair("CM",900));
+        mappings.push_back(make_pair("M",1000));
+        
+
+        for(int i=mappings.size();i>=0;i--)
+        {
+            
+            int SymNum = tempNum /  mappings[i].second;
+            tempNum = tempNum - (SymNum * mappings[i].second);
+            while(SymNum > 0)
+            {
+                roman+=mappings[i].first;
+                SymNum--;
+            }
+ 
+        }
+        
+        return roman;
+        
+    }
+};
