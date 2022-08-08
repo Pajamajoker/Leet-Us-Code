@@ -1,0 +1,48 @@
+class Solution {
+public:
+    
+    void BFS(vector<vector<char>>& grid, int i, int j){
+    
+        queue<pair<int,int>> Q;
+        
+        Q.push(make_pair(i,j));
+        
+        while(!Q.empty())
+        {
+            auto currIsland = Q.front();
+            Q.pop();
+            
+            int l = currIsland.first;
+            int m = currIsland.second;
+            
+            //visit
+            if(l>= 0 && l < grid.size() && m >= 0 && m < grid[0].size() && grid[l][m] == '1')
+            {
+                grid[l][m]='0';
+
+                Q.push(make_pair(l,m+1));
+                Q.push(make_pair(l,m-1));
+                Q.push(make_pair(l+1,m));
+                Q.push(make_pair(l-1,m));
+            }
+        }
+    }
+    
+    int numIslands(vector<vector<char>>& grid) {
+    
+    int m=grid.size();
+    int n=grid[0].size();
+    int numsIslands = 0;
+    for(int i=0;i<m;i++)
+        for(int j=0;j<n;j++)
+        {
+            if(grid[i][j] == '1')
+            {
+                numsIslands++;
+                BFS(grid,i,j);
+            }
+        }
+    
+        return numsIslands;
+    }
+};

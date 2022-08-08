@@ -1,0 +1,64 @@
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+    Node* next;
+
+    Node() : val(0), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val, Node* _left, Node* _right, Node* _next)
+        : val(_val), left(_left), right(_right), next(_next) {}
+};
+*/
+
+class Solution {
+public:
+    Node* connect(Node* root) {
+    
+        queue<Node*> Q;
+        Q.push(root);
+        
+        Node* curr, nxtLevel;
+        
+        Node* troot = root;
+        
+        if(!root) return root;
+        
+        while(troot->right!=NULL)
+        {
+            troot->next = NULL;
+            troot=troot->right;
+        }
+        
+        while(!Q.empty())
+        {
+            Node* curr = Q.front();
+            Q.pop();
+            
+            //curr = root;
+            //nxtLevel = root->left;
+            if(!curr->left) break;
+            curr->left->next = curr->right;
+            
+            if(curr->next!=NULL)
+                curr->right->next = curr->next->left;
+                
+            //curr = curr->next;
+            
+            // if(curr == NULL)
+            //     curr = nxtLevel;
+            
+            if(curr->left)
+            Q.push(curr->left);
+            if(curr->right)
+            Q.push(curr->right);
+  
+        }
+        return root;
+    }
+};
